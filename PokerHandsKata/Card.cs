@@ -9,7 +9,7 @@ namespace PokerHandsKata
 {
     public class Card
     {
-        public static readonly Dictionary<string, int> PictureCards = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> pictureCards = new Dictionary<string, int>
         {
             { "J", 11 },
             { "Q", 12 },
@@ -17,7 +17,7 @@ namespace PokerHandsKata
             { "A", 14 }
         };
 
-        public static readonly string[] Suits = new[] { "C", "S", "H", "D" };
+        private static readonly string[] suits = new[] { "C", "S", "H", "D" };
 
         public readonly string Value;
         public readonly int NumberValue;
@@ -33,11 +33,11 @@ namespace PokerHandsKata
             Value = match.Groups[1].Value;
             Suit = match.Groups[2].Value;
 
-            if (!Suits.Contains(Suit))
+            if (!suits.Contains(Suit))
                 throw new ArgumentException(string.Format("Invalid suit: {0}", Suit));
 
-            if (PictureCards.ContainsKey(Value))
-                NumberValue = PictureCards[Value];
+            if (pictureCards.ContainsKey(Value))
+                NumberValue = pictureCards[Value];
             else
                 Int32.TryParse(Value, out NumberValue);
 
@@ -47,7 +47,7 @@ namespace PokerHandsKata
 
         public override string ToString()
         {
-            return Value.ToString() + Suit.ToString();
+            return Value + Suit;
         }
     }
 }
